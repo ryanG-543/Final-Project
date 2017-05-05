@@ -19,10 +19,12 @@ namespace Final_Project
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D SpriteSheet;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";            
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace Final_Project
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            SpriteSheet = Content.Load<Texture2D>(@"SpriteSheet");
             // TODO: use this.Content to load your game content here
         }
 
