@@ -19,7 +19,11 @@ namespace Final_Project
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        enum GameStates { TitleScreen, Playing};
+        GameStates gameState = GameStates.TitleScreen;
+
         Texture2D SpriteSheet;
+        PlayerManager PlayerManager;
 
         public Game1()
         {
@@ -49,6 +53,16 @@ namespace Final_Project
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             SpriteSheet = Content.Load<Texture2D>(@"SpriteSheet");
+
+            PlayerManager = new PlayerManager(
+               SpriteSheet,
+               new Rectangle(0, 150, 50, 50),
+               3,
+               new Rectangle(
+                   0,
+                   0,
+                   this.Window.ClientBounds.Width,
+                   this.Window.ClientBounds.Height));
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,13 +81,15 @@ namespace Final_Project
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        {
+        {            
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
 
+            
+            PlayerManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -83,10 +99,13 @@ namespace Final_Project
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            PlayerManager.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

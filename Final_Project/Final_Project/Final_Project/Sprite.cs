@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Final_Project
 {
-    class Sprite
+    public class Sprite
     {
         public Texture2D Texture;
 

@@ -1,0 +1,157 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Final_Project
+{
+    public class PlayerManager
+    {
+        public Sprite playerSprite;
+        private float playerSpeed = 160.0f;
+        private Rectangle playerAreaLimit;
+
+        public int PlayerScore = 0;
+        public int LivesRemaining = 3;
+        public int healthRemaining = 100;
+        public bool Destroyed = false;
+       
+
+        private Vector2 gunOffset = new Vector2(25, 10);
+        private float shotTimer = 0.0f;
+        public float minShotTimer = 0.2f;
+        private int playerRadius = 15;
+        
+
+        public PlayerManager(
+            Texture2D texture,
+            Rectangle initialFrame,
+            int frameCount,
+            Rectangle screenBounds)
+        {
+            playerSprite = new Sprite(
+                new Vector2 (715, 596),
+                texture,
+                initialFrame,
+                Vector2.Zero);           
+
+            playerAreaLimit =
+                new Rectangle(
+                    0,
+                    screenBounds.Height / 2,
+                    screenBounds.Width,
+                    screenBounds.Height / 2);
+
+            for (int x = 1; x < frameCount; x++)
+            {
+                playerSprite.AddFrame(
+                    new Rectangle(
+                        initialFrame.X + (initialFrame.Width * x),
+                        initialFrame.Y,
+                        initialFrame.Width,
+                        initialFrame.Height));
+            }
+            playerSprite.CollisionRadius = playerRadius;
+        }
+                       
+    
+
+        private void HandleKeyboardInput(KeyboardState keyState)
+        {
+            // WASD Controls
+            if (keyState.IsKeyDown(Keys.W))
+            {
+                playerSprite.Velocity += new Vector2(0, -1);
+            }
+            if (keyState.IsKeyDown(Keys.S))
+            {
+                playerSprite.Velocity += new Vector2(0, 1);
+            }
+            if (keyState.IsKeyDown(Keys.A))
+            {
+                playerSprite.Velocity += new Vector2(-1, 0);
+            }
+
+            if (keyState.IsKeyDown(Keys.D))
+            {
+                playerSprite.Velocity += new Vector2(1, 0);
+            }
+          
+
+            //DEBUG BUTTON
+            if (keyState.IsKeyDown(Keys.NumPad1))
+            {
+                PlayerScore = 1000;
+            }
+            //          if (Mouse.LeftButton == MouseButtonState.Pressed);
+            //          {
+            //              FireShot();
+            //          }
+        }
+
+        private void HandleGamepadInput(GamePadState gamePadState)
+        {
+            playerSprite.Velocity +=
+                new Vector2(
+                    gamePadState.ThumbSticks.Left.X,
+                    -gamePadState.ThumbSticks.Left.Y);
+           
+        }
+
+        private void imposeMovementLimits()
+        {
+            Vector2 location = playerSprite.Location;
+
+            if (location.X < playerAreaLimit.X)
+                location.X = playerAreaLimit.X;
+
+            if (location.X >
+                (playerAreaLimit.Right - playerSprite.Source.Width))
+                location.X =
+                    (playerAreaLimit.Right - playerSprite.Source.Width);
+
+            if (location.Y < playerAreaLimit.Y)
+                location.Y = playerAreaLimit.Y;
+
+            if (location.Y >
+                (playerAreaLimit.Bottom - playerSprite.Source.Height))
+                location.Y =
+                    (playerAreaLimit.Bottom - playerSprite.Source.Height);
+
+            playerSprite.Location = location;
+        }
+
+        public void Update(GameTime gameTime)
+        {            
+
+            if (!Destroyed)
+            {
+                playerSprite.Velocity = Vector2.Zero;
+
+                shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                HandleKeyboardInput(Keyboard.GetState());
+                HandleGamepadInput(GamePad.GetState(PlayerIndex.One));
+
+                playerSprite.Velocity.Normalize();
+                playerSprite.Velocity *= playerSpeed;
+
+                playerSprite.Update(gameTime);
+                imposeMovementLimits();
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {            
+
+            if (!Destroyed)
+            {
+                playerSprite.Draw(spriteBatch);
+            }
+        }
+
+    }
+}
