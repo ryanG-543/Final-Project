@@ -56,8 +56,8 @@ namespace Final_Project
 
             PlayerManager = new PlayerManager(
                SpriteSheet,
-               new Rectangle(0, 150, 50, 50),
-               3,
+               new Rectangle(715, 519, 84, 79),
+               1,
                new Rectangle(
                    0,
                    0,

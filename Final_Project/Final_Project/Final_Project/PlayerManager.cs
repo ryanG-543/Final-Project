@@ -24,7 +24,7 @@ namespace Final_Project
         private float shotTimer = 0.0f;
         public float minShotTimer = 0.2f;
         private int playerRadius = 15;
-        
+        public ShotManager PlayerShotManager;
 
         public PlayerManager(
             Texture2D texture,
@@ -33,17 +33,25 @@ namespace Final_Project
             Rectangle screenBounds)
         {
             playerSprite = new Sprite(
-                new Vector2 (715, 596),
+                new Vector2(200, 200),
                 texture,
                 initialFrame,
-                Vector2.Zero);           
+                Vector2.Zero);
+
+            PlayerShotManager = new ShotManager(
+                texture,
+                new Rectangle(0, 300, 5, 5),
+                4,
+                2,
+                250f,
 
             playerAreaLimit =
                 new Rectangle(
                     0,
                     screenBounds.Height / 2,
                     screenBounds.Width,
-                    screenBounds.Height / 2);
+                    screenBounds.Height / 2));
+        
 
             for (int x = 1; x < frameCount; x++)
             {
@@ -56,8 +64,19 @@ namespace Final_Project
             }
             playerSprite.CollisionRadius = playerRadius;
         }
-                       
-    
+        private void FireShot()
+        {
+            if (shotTimer >= minShotTimer)
+            {
+                PlayerShotManager.FireShot(
+                    playerSprite.Location + gunOffset,
+                    new Vector2(0, -1),
+                    true);
+                shotTimer = 0.0f;
+            }
+        }
+
+
 
         private void HandleKeyboardInput(KeyboardState keyState)
         {
@@ -79,7 +98,11 @@ namespace Final_Project
             {
                 playerSprite.Velocity += new Vector2(1, 0);
             }
-          
+            if (keyState.IsKeyDown(Keys.Space))
+            {
+                FireShot();
+            }
+
 
             //DEBUG BUTTON
             if (keyState.IsKeyDown(Keys.NumPad1))
