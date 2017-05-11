@@ -33,24 +33,25 @@ namespace Final_Project
             Rectangle screenBounds)
         {
             playerSprite = new Sprite(
-                new Vector2(200, 200),
+                new Vector2(500, 500),
                 texture,
                 initialFrame,
                 Vector2.Zero);
 
             PlayerShotManager = new ShotManager(
                 texture,
-                new Rectangle(0, 300, 5, 5),
-                4,
+                new Rectangle(681, 547, 15, 35),
+                1,
                 2,
                 250f,
+                screenBounds);
 
             playerAreaLimit =
                 new Rectangle(
                     0,
                     screenBounds.Height / 2,
                     screenBounds.Width,
-                    screenBounds.Height / 2));
+                    screenBounds.Height / 2);
         
 
             for (int x = 1; x < frameCount; x++)
@@ -70,7 +71,7 @@ namespace Final_Project
             {
                 PlayerShotManager.FireShot(
                     playerSprite.Location + gunOffset,
-                    new Vector2(0, -1),
+                    new Vector2(0, -2),
                     true);
                 shotTimer = 0.0f;
             }
@@ -168,8 +169,8 @@ namespace Final_Project
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {            
-
+        {
+            PlayerShotManager.Draw(spriteBatch);          
             if (!Destroyed)
             {
                 playerSprite.Draw(spriteBatch);

@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Asteroid_Belt_Assault
+namespace Final_Project
 {
-    class ShotManager
+    public class ShotManager
     {
         public List<Sprite> Shots = new List<Sprite>();
         private Rectangle screenBounds;

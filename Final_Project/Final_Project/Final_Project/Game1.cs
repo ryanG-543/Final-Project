@@ -22,8 +22,15 @@ namespace Final_Project
         enum GameStates { TitleScreen, Playing};
         GameStates gameState = GameStates.TitleScreen;
 
+        private float playerDeathDelayTime = 4f;
+        private float playerDeathTimer = 1f;
+        private float titleScreenTimer = 0f;
+        private float titleScreenDelayTime = 1f;
+
         Texture2D SpriteSheet;
+        Texture2D titleScreen;
         PlayerManager PlayerManager;
+        
 
         public Game1()
         {
@@ -53,6 +60,7 @@ namespace Final_Project
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             SpriteSheet = Content.Load<Texture2D>(@"SpriteSheet");
+            titleScreen = Content.Load<Texture2D>(@"titleScreen");
 
             PlayerManager = new PlayerManager(
                SpriteSheet,
@@ -88,9 +96,27 @@ namespace Final_Project
 
             // TODO: Add your update logic here
 
-            
+            PlayerManager.PlayerShotManager.Update(gameTime);
             PlayerManager.Update(gameTime);
             base.Update(gameTime);
+            switch (gameState)
+            {
+                case GameStates.TitleScreen:
+                    titleScreenTimer +=
+                        (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (titleScreenTimer >= titleScreenDelayTime)
+                    {
+                        if ((Keyboard.GetState().IsKeyDown(Keys.Space)) ||
+                            (GamePad.GetState(PlayerIndex.One).Buttons.A ==
+                            ButtonState.Pressed))
+                        {
+                            gameState = GameStates.Playing;
+                        }
+                    }
+                    break;
+                    playerDeathTimer +=
+                            (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
         }
 
         /// <summary>
@@ -104,7 +130,18 @@ namespace Final_Project
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            PlayerManager.Draw(spriteBatch);
+            if (gameState == GameStates.TitleScreen)
+            {
+                spriteBatch.Draw(titleScreen,
+                    new Rectangle(0, 0, this.Window.ClientBounds.Width,
+                        this.Window.ClientBounds.Height),
+                        Color.White);
+            }
+            if ((gameState == GameStates.Playing))
+            {
+                PlayerManager.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
