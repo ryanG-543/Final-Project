@@ -16,3 +16,4 @@ C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Final-Project\Final_Projec
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Final-Project\Final_Project\Final_Project\Final_Project\obj\x86\Debug\Final_Project.exe
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Final-Project\Final_Project\Final_Project\Final_Project\obj\x86\Debug\Final_Project.pdb
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Final-Project\Final_Project\Final_Project\Final_Project\bin\x86\Debug\Content\titleScreen.xnb
+C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Final-Project\Final_Project\Final_Project\Final_Project\bin\x86\Debug\Content\background.xnb

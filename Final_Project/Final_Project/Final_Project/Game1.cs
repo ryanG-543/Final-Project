@@ -29,7 +29,9 @@ namespace Final_Project
 
         Texture2D SpriteSheet;
         Texture2D titleScreen;
+        Texture2D background;
         PlayerManager PlayerManager;
+        
         
 
         public Game1()
@@ -61,6 +63,7 @@ namespace Final_Project
             spriteBatch = new SpriteBatch(GraphicsDevice);
             SpriteSheet = Content.Load<Texture2D>(@"SpriteSheet");
             titleScreen = Content.Load<Texture2D>(@"titleScreen");
+            background = Content.Load<Texture2D>(@"background");
 
             PlayerManager = new PlayerManager(
                SpriteSheet,
@@ -139,8 +142,9 @@ namespace Final_Project
             }
             if ((gameState == GameStates.Playing))
             {
+                spriteBatch.Draw(background, Vector2.Zero, Color.White);               
                 PlayerManager.Draw(spriteBatch);
-            }
+            }                                      
 
             spriteBatch.End();
             base.Draw(gameTime);

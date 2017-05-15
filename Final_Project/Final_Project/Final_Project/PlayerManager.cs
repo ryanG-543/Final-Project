@@ -94,7 +94,6 @@ namespace Final_Project
             {
                 playerSprite.Velocity += new Vector2(-1, 0);
             }
-
             if (keyState.IsKeyDown(Keys.D))
             {
                 playerSprite.Velocity += new Vector2(1, 0);
