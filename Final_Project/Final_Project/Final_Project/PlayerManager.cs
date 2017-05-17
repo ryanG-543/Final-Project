@@ -101,18 +101,7 @@ namespace Final_Project
             if (keyState.IsKeyDown(Keys.Space))
             {
                 FireShot();
-            }
-
-
-            //DEBUG BUTTON
-            if (keyState.IsKeyDown(Keys.NumPad1))
-            {
-                PlayerScore = 1000;
-            }
-            //          if (Mouse.LeftButton == MouseButtonState.Pressed);
-            //          {
-            //              FireShot();
-            //          }
+            }               
         }
 
         private void HandleGamepadInput(GamePadState gamePadState)
