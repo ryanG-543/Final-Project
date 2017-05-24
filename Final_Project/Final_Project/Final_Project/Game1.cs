@@ -31,6 +31,7 @@ namespace Final_Project
         Texture2D titleScreen;
         Texture2D background;
         PlayerManager PlayerManager;
+        EnemyManager EnemyManager;
         
         
 
@@ -144,6 +145,7 @@ namespace Final_Project
             {
                 spriteBatch.Draw(background, Vector2.Zero, Color.White);               
                 PlayerManager.Draw(spriteBatch);
+                EnemyManager.Draw(spriteBatch);
             }                                      
 
             spriteBatch.End();
