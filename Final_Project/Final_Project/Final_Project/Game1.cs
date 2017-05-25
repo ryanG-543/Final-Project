@@ -75,6 +75,17 @@ namespace Final_Project
                    0,
                    this.Window.ClientBounds.Width,
                    this.Window.ClientBounds.Height));
+
+            EnemyManager = new EnemyManager(
+                SpriteSheet,
+                new Rectangle(590, 526, 61, 77),
+                1,
+                PlayerManager,
+                new Rectangle(
+                    0,
+                    0,
+                    this.Window.ClientBounds.Width,
+                    this.Window.ClientBounds.Height));
             // TODO: use this.Content to load your game content here
         }
 
@@ -100,8 +111,7 @@ namespace Final_Project
 
             // TODO: Add your update logic here
 
-            PlayerManager.PlayerShotManager.Update(gameTime);
-            PlayerManager.Update(gameTime);
+
             base.Update(gameTime);
             switch (gameState)
             {
@@ -115,12 +125,19 @@ namespace Final_Project
                             ButtonState.Pressed))
                         {
                             gameState = GameStates.Playing;
+                            EnemyManager.Active = true;
                         }
                     }
                     break;
-                    playerDeathTimer +=
-                            (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                case GameStates.Playing:
+                    PlayerManager.Update(gameTime);
+                    EnemyManager.Update(gameTime);
+                    break;
             }
+
+            playerDeathTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
         }
 
         /// <summary>

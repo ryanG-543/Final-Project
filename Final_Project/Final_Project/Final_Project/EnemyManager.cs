@@ -18,8 +18,8 @@ namespace Final_Project
         public ShotManager EnemyShotManager;
         private PlayerManager playerManager;
 
-        public int MinShipsPerWave = 4;
-        public int MaxShipsPerWave = 6;
+        public int MinShipsPerWave = 6;
+        public int MaxShipsPerWave = 9;
         private float nextWaveTimer = 0.0f;
         private float nextWaveMinTimer = 8.0f;
         private float shipSpawnTimer = 0.0f;

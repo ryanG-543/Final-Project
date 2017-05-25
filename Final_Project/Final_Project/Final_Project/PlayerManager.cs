@@ -141,6 +141,7 @@ namespace Final_Project
 
             if (!Destroyed)
             {
+                PlayerShotManager.Update(gameTime);
                 playerSprite.Velocity = Vector2.Zero;
 
                 shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
