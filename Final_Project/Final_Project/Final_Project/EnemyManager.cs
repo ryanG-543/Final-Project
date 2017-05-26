@@ -90,9 +90,9 @@ namespace Final_Project
 
             EnemyShotManager = new ShotManager(
                 texture,
-                new Rectangle(0, 300, 5, 5),
-                    4,
-                    2,
+                new Rectangle(681, 547, 15, 35),
+                    1,
+                    1,
                     150f,
                     screenBounds);
 
