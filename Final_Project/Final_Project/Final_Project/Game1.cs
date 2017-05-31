@@ -19,7 +19,7 @@ namespace Final_Project
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        enum GameStates { TitleScreen, Playing};
+        enum GameStates { TitleScreen, Playing, PlayerDead};
         GameStates gameState = GameStates.TitleScreen;
 
         private float playerDeathDelayTime = 4f;
@@ -30,7 +30,7 @@ namespace Final_Project
         Texture2D SpriteSheet;
         Texture2D titleScreen;
         Texture2D background;
-        PlayerManager PlayerManager;
+        PlayerManager PlayerManager;        
         EnemyManager EnemyManager;
         
         
@@ -163,6 +163,13 @@ namespace Final_Project
                 spriteBatch.Draw(background, Vector2.Zero, Color.White);               
                 PlayerManager.Draw(spriteBatch);
                 EnemyManager.Draw(spriteBatch);
+                if (PlayerManager.Destroyed)
+                {
+                    playerDeathTimer = 0f;
+                    EnemyManager.Active = false;
+                    PlayerManager.LivesRemaining--;                   
+                        gameState = GameStates.PlayerDead;                    
+                }
             }                                      
 
             spriteBatch.End();
